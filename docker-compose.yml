@@ -1,0 +1,18 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: tinkoff_k8s_demo
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      PGPORT: 5433
+    ports:
+      - "5433:5433"
+  app:
+    image: minusd/graphql-example:latest
+    ports:
+      - "5433"
+      - "8080:8080"
+    depends_on:
+      - postgres
